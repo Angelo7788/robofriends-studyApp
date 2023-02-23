@@ -6,21 +6,8 @@ import './App.css';
 
 function App() {
 
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     robots: [],
-  //     searchfield: ''
-  //   }
-  // }
   const [robots, setRobots] = useState([]);
   const [searchfield, setSearchfield] = useState('');
-
-  // componentDidMount() {
-  //   fetch('https://jsonplaceholder.typicode.com/users')
-  //     .then(response=> response.json())
-  //     .then(users => {this.setState({ robots: users})});
-  // }
 
   // lifecycle hook useEffect
 
@@ -37,14 +24,10 @@ function App() {
     setSearchfield(event.target.value)
   }
 
-  // const { robots, searchfield } = this.state;
-
   const filteredRobots = robots.filter(robot =>{
       return robot.name.toLowerCase().includes(searchfield.toLowerCase());
     })
   
-  // console.log(robots,searchfield);
-
   return !robots.length ?
       <h1 className='tc'>Loading</h1> :
       (
