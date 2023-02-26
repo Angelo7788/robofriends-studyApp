@@ -3,6 +3,8 @@ import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import './App.css';
+import {reducer, initialUserState} from '../reducer/userReducer';
+import {IncreaseAge, DecreaseAge, onChangeName} from '../reducer/userReducer';
 
 function App() {
 
@@ -30,34 +32,8 @@ function App() {
 
   // reducer
 
-  const initialState = { name: 'Angelo', age: 45};
-  const [state, dispatch] = useReducer(reducer, initialState);
-  
-  function reducer(state, action) {
-    switch (action.type) {
-      case 'add_1': {
-        return{
-          ...state,
-          age: state.age + 1
-        };
-      }
-      case 'subtract_1': {
-        return{
-          ...state,
-          age: state.age - 1
-        };
-      }
-    }
-    throw Error('Unknown action: actioon.type');
-  }
-
-  const IncreaseAge = ()=> {
-    dispatch({ type: 'add_1'});
-  }
-
-
-
-
+  const [state, dispatch] = useReducer(reducer, initialUserState);
+  const [newName, setNewname] = useState('');
   
   return !robots.length ?
       <h1 className='tc'>Loading</h1> :
@@ -65,14 +41,22 @@ function App() {
         <div className='tc'>
           <h1 className='f1'>RoboFriends Hooks</h1>
           <h2 className='tc'> My name is {state.name} and I am {state.age} </h2>
-          <button className='tc' onClick={()=> {
-            dispatch({ type: 'add_1'});
-          }} >
+          <button className='tc' onClick={IncreaseAge} >
             Increment age
           </button>
-          <button className='tc' onClick={IncreaseAge} >
-            Increment age 2
+          <button className='tc ma2' onClick={DecreaseAge} >
+            Decrease age
           </button>
+            <div>
+                <h2 className='tc'>Type the new name</h2>
+                <input className='tc ma2'
+                  value={newName}
+                  onChange={(event)=> {
+                    setNewname(event.target.value)
+                  }}
+                />
+                <button className='ma2' onClick={onChangeName}>Change name</button>
+            </div>
           <SearchBox searchChange={onSearchChange}/>
           <Scroll>
             <CardList robots={filteredRobots} />
