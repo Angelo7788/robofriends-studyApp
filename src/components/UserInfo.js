@@ -16,10 +16,10 @@ const UserInfo = ({name,age, IncreaseAge,DecreaseAge,onChangeName})=> {
             <div>
                     <h2 className='tc'>Type the new name</h2>
                     <input className='tc ma2'
-                    value={newName}
-                    onChange={(event)=> {
-                        setNewname(event.target.value)
-                    }}
+                        value={newName}
+                        onChange={(event)=> {
+                            setNewname(event.target.value)
+                        }}
                     />
                     <button className='ma2' onClick={()=>{onChangeName(newName)}}>Change name</button>
             </div>
