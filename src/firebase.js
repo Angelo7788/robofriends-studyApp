@@ -1,0 +1,15 @@
+
+import { initializeApp } from "firebase/app";
+import { getFirestore} from '@firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAAMPXaPcduL-w1mVclrDLGPVdomj4qF7U",
+  authDomain: "robofriendsstudyapp.firebaseapp.com",
+  projectId: "robofriendsstudyapp",
+  storageBucket: "robofriendsstudyapp.appspot.com",
+  messagingSenderId: "433582286762",
+  appId: "1:433582286762:web:621f8e9803a31a6898edd3"
+};
+
+const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app);
