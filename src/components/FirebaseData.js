@@ -1,12 +1,25 @@
 import React, {useRef} from 'react';
+import {firestore} from '../firebase';
+import { addDoc, collection } from '@firebase/firestore';
 
 const FirebaseData = () => {
 
     const messageRef = useRef();
+    const ref = collection(firestore, 'textInput');
+    // if the collection textInput does not exist, it will create the collection
 
     const handleSave = async (e) => {
         e.preventDefault();
         console.log(messageRef.current.value);
+
+        let data = {
+            text: messageRef.current.value,
+        };
+        try {
+            addDoc(ref, data);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return (
