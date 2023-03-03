@@ -6,6 +6,7 @@ import './App.css';
 import {reducer, initialUserState} from '../reducer/userReducer';
 import {ADD_1, SUBTRACT_1,CHANGE_NAME} from '../reducer/userReducer';
 import UserInfo from '../components/UserInfo';
+import FirebaseData from '../components/FirebaseData';
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
             onChangeName={onChangeName}
           />
           <SearchBox searchChange={onSearchChange}/>
+          <FirebaseData/>
           <Scroll>
             <CardList robots={filteredRobots} />
           </Scroll>
