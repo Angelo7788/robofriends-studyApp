@@ -10,7 +10,7 @@ export {ADD_1, SUBTRACT_1,CHANGE_NAME};
 
 // initial state
 
-export const initialUserState = { name: 'Angelo', age: 45};
+export const initialUserState = { name: '....', age: 0};
 
 // reducer function
 
