@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import {storage} from '../firebase';
 import {
     ref,
-    uploadBytesResumable
+    uploadBytesResumable,
+    getDownloadURL
 } from '@firebase/storage';
 
 const FirebaseImage = () => {
 
     const [file, setFile] = useState('');
+    const [percent, setPercent] = useState(0);
 
     const handleChange = (event) => {
         setFile(event.target.files[0]);
@@ -20,6 +22,25 @@ const FirebaseImage = () => {
         }
         const storageRef = ref(storage, `/files/${file.name}`)
         const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+                const percent = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+
+                // update progress
+                setPercent(percent);
+            },
+            (err) => console.log(err),
+            ()=> {console.log("check")},
+            ()=> {
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    console.log('URL:', url);
+                })
+            }
+        )
     }
 
     //'files' name of the folder where to put the file
@@ -35,7 +56,9 @@ const FirebaseImage = () => {
             <button 
                 className='ma2'
                 onClick={handleUpload}
-                >Upload to Firebase</button>
+            >Upload to Firebase</button>
+            <p>{percent} ' % done'</p>
+
         </div>
 
     )
